@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Canopy"
+version = "1.0.0"
+id = "artifacts/canopy-demo"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18212
+
+[services.development]
+run = "pnpm --filter @workspace/canopy-demo run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/canopy-demo", "run", "build" ]
+publicDir = "artifacts/canopy-demo/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18212"
+BASE_PATH = "/"
